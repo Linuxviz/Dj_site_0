@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}
+    {{ category.title }}
+{% endblock %}
+
+{% block sidebar %}
+    {% include 'include/_sidebar.html' %}
+{% endblock %}
+
+{% block content %}
+        <div class="col-md-8">
+            {% for novelty in news %}
+                <div class="card mb-3">
+                    <div class="card-header">
+                        {{ novelty.category }}
+                    </div>
+                    <div class="card-body">
+                        <div class="media">
+                            {% if novelty.photo %}
+                                <img src="{{ novelty.photo.url }}" alt="" width="500" class="mr-3">
+                            {% else %}
+                                <img src="https://picsum.photos/id/870/200/300?grayscale&blur=2" alt="" width="500"
+                                     class="mr-3">
+                            {% endif %}
+                            <div class="media-body">
+                                <h5 class="card-title">{{ novelty.title }}</h5>
+                                <p class="card-text">{{ novelty.content|linebreaks|truncatewords:"50" }}</p>
+                                <a href="#" class="btn btn-primary">Читать полностью</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div style="float: left">опубликованно: {{ novelty.created_at }}</div>
+                        <div style="float: right">дата последнего редактирования: {{ novelty.updated_at }}</div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+{% endblock %}
